@@ -1,5 +1,6 @@
 package cs131.pa1.filter.sequential;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,6 @@ public class SequentialREPL {
 		
 		
 		List<SequentialFilter> linkedFilters = new LinkedList<>();
-		SequentialFilter currentFilter;
 		Scanner user = new Scanner(System.in);
 		String input = user.nextLine();
 		
@@ -32,8 +32,11 @@ public class SequentialREPL {
 			
 			linkedFilters = SequentialCommandBuilder.createFiltersFromCommand(input);
 			
-			for(SequentialFilter filter : linkedFilters) {
-				filter.process();
+			if(linkedFilters != null) { // if list was made successfully
+				Iterator<SequentialFilter> iter = linkedFilters.iterator();
+				while(iter.hasNext()) {
+					iter.next().process();
+				}
 			}
 			
 			

@@ -2,6 +2,7 @@ package cs131.pa1.filter.sequential;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import cs131.pa1.filter.Message;
@@ -14,18 +15,21 @@ public class SequentialCommandBuilder {
 	
 	
 	public static List<SequentialFilter> createFiltersFromCommand(String command){
-		return null;
-	}
-
-	private static SequentialFilter determineFinalFilter(String command){
+		String[] subcommands = command.split("\\s\\|\\s", -1); // separate commands by pipes
+		List<SequentialFilter> filters = new LinkedList<>();
+		for(String subcommand : subcommands) {
+			filters.add(constructFilterFromSubCommand(subcommand));
+		}
+		
 		return null;
 	}
 	
-	private static String adjustCommandToRemoveFinalFilter(String command){
-		return null;
-	}
 	
 	private static SequentialFilter constructFilterFromSubCommand(String subCommand){
+		String[] subCommands = subCommand.split("\\s", -1);
+		String subFilter = subCommands[0];
+		
+		
 		return null;
 	}
 

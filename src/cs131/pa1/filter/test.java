@@ -1,18 +1,21 @@
 package cs131.pa1.filter;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class test {
 
 	public static void main(String[] args) {
 		
-		LinkedList<Integer> linkedList = new LinkedList<>();
-		linkedList.add(1);
-		linkedList.add(2);
-		int number = linkedList.getFirst();
-		System.out.println(number);
+		String line = "cat hello.txt | grep keyword | > output.txt";
+		System.out.println(line);
+		System.out.println(Arrays.toString(line.split("\\s\\|\\s", -1)));
+		for(String str : line.split("\\s\\|\\s", -1)) {
+			System.out.println(Arrays.toString(str.split("\\s",-1)));
+			
+		}
+		System.out.println(Arrays.toString(line.split("\\s\\|\\s", -1)));
+
 	}
 
 }
