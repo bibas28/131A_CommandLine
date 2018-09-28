@@ -16,10 +16,12 @@ public class SequentialREPL {
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
 		
-		SequentialCommandBuilder commandBuilder = new SequentialCommandBuilder();
-		List<SequentialFilter> filters = new LinkedList<>();
+		
+		List<SequentialFilter> linkedFilters = new LinkedList<>();
+		SequentialFilter currentFilter;
 		Scanner user = new Scanner(System.in);
 		String input = user.nextLine();
+		
 		
 		while(!input.equals("exit")) {
 			if(input.length() == 0) { // if user simply hits the return button
@@ -28,15 +30,12 @@ public class SequentialREPL {
 				continue;
 			}
 			
-			if(commandBuilder.createFiltersFromCommand(input) == null) { // some sort of error with the user's request
-				System.out.print(Message.NEWCOMMAND);
-				input = user.nextLine();
-				continue;
+			linkedFilters = SequentialCommandBuilder.createFiltersFromCommand(input);
+			
+			for(SequentialFilter filter : linkedFilters) {
+				filter.process();
 			}
 			
-			/*
-			 ...do some stuff
-			 */
 			
 			System.out.print(Message.NEWCOMMAND);
 			input = user.nextLine();

@@ -14,16 +14,7 @@ public class SequentialCommandBuilder {
 	
 	
 	public static List<SequentialFilter> createFiltersFromCommand(String command){
-//		String commandInstructions[] = command.split(" ");
-//		if(!acceptedCommands.contains(commandInstructions[0])) { // command not recognized
-//			System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(commandInstructions[0]));
-//			return null;
-//		}
-//		
-//		String commandName = commandInstructions[0];
-//		SequentialFilter filter = determineFilter(commandName);
-//		
-//		return null;
+		return null;
 	}
 
 	private static SequentialFilter determineFinalFilter(String command){
