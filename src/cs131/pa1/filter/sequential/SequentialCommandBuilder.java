@@ -80,7 +80,7 @@ public class SequentialCommandBuilder {
 				if(subCommands.length < 2) { // grep has no argument
 					System.out.println(Message.REQUIRES_PARAMETER.with_parameter("grep"));
 				}
-				filter = new GrepFilter(subcommand);
+				filter = new GrepFilter(subCommands[1]);
 				break;
 				
 			case ">":
