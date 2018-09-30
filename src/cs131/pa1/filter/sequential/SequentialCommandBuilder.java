@@ -56,7 +56,15 @@ public class SequentialCommandBuilder {
 					System.out.println(Message.REQUIRES_PARAMETER.with_parameter("cd"));
 					return null;
 				}
-				filter = new CdFilter(subcommand);
+				String directory = subCommands[1];
+				if(directory.equals(".")) { // stay on current directory
+					return null;
+				}
+				filter = new CdFilter(directory);
+				if(filter.processLine("") == null) { // if directory is not recognized
+					return null;
+				}
+				
 				break;
 				
 			case "cat":
