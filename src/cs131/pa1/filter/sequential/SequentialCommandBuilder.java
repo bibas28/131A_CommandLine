@@ -58,10 +58,11 @@ public class SequentialCommandBuilder {
 		
 			case "cd":
 				if(subCommands.length < 2) { // cd requires argument
-					System.out.println(Message.REQUIRES_PARAMETER.with_parameter("cd"));
+					System.out.print(Message.REQUIRES_PARAMETER.with_parameter("cd"));
 					return null;
 				}
 				String directory = subCommands[1];
+				
 				if(directory.equals(".")) { // stay on current directory
 					return null;
 				}
