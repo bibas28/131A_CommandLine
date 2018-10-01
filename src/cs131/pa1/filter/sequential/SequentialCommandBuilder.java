@@ -64,7 +64,7 @@ public class SequentialCommandBuilder {
 		
 		
 		if(!acceptedCommands.contains(subFilter)) { // invalid command
-			System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(subFilter));
+			System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(subcommand));
 			return null;
 		}
 		
