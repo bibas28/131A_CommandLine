@@ -13,7 +13,6 @@ public class SequentialREPL {
 	
 	public static void main(String[] args){
 		currentWorkingDirectory = System.getProperty("user.dir"); // initialize initial directory
-		System.out.print(Message.NEWCOMMAND);
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
 		
