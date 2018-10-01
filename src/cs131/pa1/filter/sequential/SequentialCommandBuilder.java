@@ -108,6 +108,7 @@ public class SequentialCommandBuilder {
 			case "grep": 
 				if(subCommands.length < 2) { // grep has no argument
 					System.out.print(Message.REQUIRES_PARAMETER.with_parameter("grep"));
+					return null;
 				}
 				filter = new GrepFilter(subCommands[1]);
 				break;
