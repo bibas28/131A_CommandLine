@@ -34,5 +34,8 @@ public class CatFilter extends SequentialFilter {
 		return null;
 	}
 
+	public String toString() {
+		return "cat";
+	}
 	
 }

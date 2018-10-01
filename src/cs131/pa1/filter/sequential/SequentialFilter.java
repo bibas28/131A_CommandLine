@@ -47,4 +47,13 @@ public abstract class SequentialFilter extends Filter {
 	
 	protected abstract String processLine(String line);
 	
+	public Queue<String> getOutput(){
+		return this.output;
+	}
+	public Queue<String> getInput(){
+		return this.input;
+	}
+	public SequentialFilter getNext() {
+		return (SequentialFilter) this.next;
+	}
 }

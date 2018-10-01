@@ -1,7 +1,6 @@
 package cs131.pa1.filter.sequential;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -21,6 +20,7 @@ public class SequentialCommandBuilder {
 		String[] subcommands = command.split("\\s\\|\\s", -1); // separate commands by pipes
 		List<SequentialFilter> filters = new LinkedList<>();
 		SequentialFilter filter;
+		
 		for(String subcommand : subcommands) {
 			filter = constructFilterFromSubCommand(subcommand);
 			if(filter != null) { // if there was no error when creating filter, then add it to the list
@@ -29,7 +29,7 @@ public class SequentialCommandBuilder {
 				return null;
 			}
 		}
-		
+		filters.add(new PrintFilter());
 		if(linkFilters(filters)) { // if no errors when linking filters
 			return filters;
 		}
@@ -40,9 +40,10 @@ public class SequentialCommandBuilder {
 	
 	private static SequentialFilter constructFilterFromSubCommand(String subcommand){
 		String[] subCommands = subcommand.split("\\s", -1); //split by whitespace
-		SequentialFilter filter;
+		SequentialFilter filter = null;
 		String subFilter = subCommands[0];
 		String error;
+		
 		
 		if(!acceptedCommands.contains(subFilter)) { // invalid command
 			System.out.println(Message.COMMAND_NOT_FOUND.with_parameter(subFilter));
@@ -89,7 +90,11 @@ public class SequentialCommandBuilder {
 					System.out.println(error);
 					return null;
 				}
-				filter = new RedirectFilter();
+			try {
+				filter = new RedirectFilter(subCommands[1]);
+			} catch (Exception e) {
+				return null;
+			}
 				break;
 				
 			case "ls" :

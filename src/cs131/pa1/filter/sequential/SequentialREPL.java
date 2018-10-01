@@ -12,7 +12,7 @@ public class SequentialREPL {
 	static String currentWorkingDirectory;
 	
 	public static void main(String[] args){
-		updateWorkingDirectory(); // initialize initial directory
+		currentWorkingDirectory = System.getProperty("user.dir"); // initialize initial directory
 		System.out.print(Message.NEWCOMMAND);
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
@@ -31,6 +31,7 @@ public class SequentialREPL {
 			}
 			
 			linkedFilters = SequentialCommandBuilder.createFiltersFromCommand(input);
+//			System.out.println("linkedFilters = " + linkedFilters);
 			
 			if(linkedFilters != null) { // if list was made successfully
 				Iterator<SequentialFilter> iter = linkedFilters.iterator();
@@ -49,7 +50,4 @@ public class SequentialREPL {
 		
 	}
 
-	private static void updateWorkingDirectory() {
-		currentWorkingDirectory = System.getProperty("user.dir");
-	}
 }
