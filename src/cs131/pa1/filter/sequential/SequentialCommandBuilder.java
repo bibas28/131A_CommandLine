@@ -22,11 +22,13 @@ public class SequentialCommandBuilder {
 		String[] subcommands = command.split("\\s\\|\\s", -1); // separate commands by pipes
 		List<SequentialFilter> filters = new LinkedList<>();
 		SequentialFilter filter;
+		int counter = -1;
 		
 		for(String subcommand : subcommands) {
-			filter = constructFilterFromSubCommand(subcommand);
+			counter++;
+			filter = constructFilterFromSubCommand(subcommand, counter);
 			if(filter != null) { // if there was no error when creating filter, then add it to the list
-				filters.add(constructFilterFromSubCommand(subcommand));
+				filters.add(filter);
 			} else {
 				return null;
 			}
@@ -40,7 +42,7 @@ public class SequentialCommandBuilder {
 	}
 	
 	
-	private static SequentialFilter constructFilterFromSubCommand(String subcommand){
+	private static SequentialFilter constructFilterFromSubCommand(String subcommand,int counter){
 		String[] subCommands = subcommand.split("\\s", -1); //split by whitespace
 		SequentialFilter filter = null;
 		String subFilter = subCommands[0];
@@ -72,6 +74,10 @@ public class SequentialCommandBuilder {
 				
 			case "cat":
 				error = hasFileError(subCommands, subcommand, "cat");
+				if(counter != 0) { // extra test to adjust for/accommodate test suite
+					System.out.print(Message.CANNOT_HAVE_INPUT.with_parameter("cat"));
+					return null;
+				}
 				if(error != null) {
 					System.out.print(error); // File not found
 					return null;
