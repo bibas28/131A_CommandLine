@@ -16,7 +16,6 @@ public class SequentialREPL {
 		System.out.print(Message.WELCOME);
 		System.out.print(Message.NEWCOMMAND);
 		
-		
 		List<SequentialFilter> linkedFilters = new LinkedList<>();
 		Scanner user = new Scanner(System.in);
 		String input = user.nextLine();

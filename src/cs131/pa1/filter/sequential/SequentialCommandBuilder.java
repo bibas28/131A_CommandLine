@@ -48,7 +48,7 @@ public class SequentialCommandBuilder {
 		
 		
 		if(!acceptedCommands.contains(subFilter)) { // invalid command
-			System.out.println(Message.COMMAND_NOT_FOUND.with_parameter(subFilter));
+			System.out.print(Message.COMMAND_NOT_FOUND.with_parameter(subFilter));
 			return null;
 		}
 		
@@ -86,7 +86,7 @@ public class SequentialCommandBuilder {
 				
 			case "grep": 
 				if(subCommands.length < 2) { // grep has no argument
-					System.out.println(Message.REQUIRES_PARAMETER.with_parameter("grep"));
+					System.out.print(Message.REQUIRES_PARAMETER.with_parameter("grep"));
 				}
 				filter = new GrepFilter(subCommands[1]);
 				break;
@@ -94,7 +94,7 @@ public class SequentialCommandBuilder {
 			case ">":
 				error = hasFileError(subCommands, subcommand, ">");
 				if(error != null) {
-					System.out.println(error);
+					System.out.print(error);
 					return null;
 				}
 			try {
@@ -127,7 +127,7 @@ public class SequentialCommandBuilder {
 		SequentialFilter curr = iter.next(); //first filter in the list
 		
 		if(curr instanceof WcFilter || curr instanceof GrepFilter || curr instanceof RedirectFilter) { //first filter cannot be wc, grep, or > because they require input
-			System.out.println(Message.REQUIRES_INPUT.with_parameter(curr.toString()));
+			System.out.print(Message.REQUIRES_INPUT.with_parameter(curr.toString()));
 			return false;
 		}
 		
@@ -138,7 +138,7 @@ public class SequentialCommandBuilder {
 			
 			// check for commands that cannot have input
 			if(curr instanceof LsFilter || curr instanceof CdFilter || curr instanceof PwdFilter || curr instanceof CatFilter) {
-				System.out.println(Message.CANNOT_HAVE_INPUT.with_parameter(curr.toString()));
+				System.out.print(Message.CANNOT_HAVE_INPUT.with_parameter(curr.toString()));
 				return false;
 			}
 			
