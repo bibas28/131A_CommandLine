@@ -1,11 +1,13 @@
 package cs131.pa1.filter.sequential;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import cs131.pa1.filter.Message;
 
@@ -71,10 +73,15 @@ public class SequentialCommandBuilder {
 			case "cat":
 				error = hasFileError(subCommands, subcommand, "cat");
 				if(error != null) {
-					System.out.println(error);
+					System.out.print(error); // File not found
 					return null;
 				}
+				
+			try {
 				filter = new CatFilter(subCommands);
+			} catch (FileNotFoundException e1) {
+				return null;
+			}
 				break;
 				
 			case "grep": 
@@ -147,7 +154,7 @@ public class SequentialCommandBuilder {
 			return Message.REQUIRES_PARAMETER.with_parameter(subFilter);
 		}
 		try {
-			File file = new File(subCommands[1]);
+			Scanner scanner = new Scanner(new File(subCommands[1]));
 		} catch (Exception error) {
 			return Message.FILE_NOT_FOUND.with_parameter(subcommand);
 		}

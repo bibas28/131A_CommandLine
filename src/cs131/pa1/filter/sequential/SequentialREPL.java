@@ -31,7 +31,7 @@ public class SequentialREPL {
 			}
 			
 			linkedFilters = SequentialCommandBuilder.createFiltersFromCommand(input);
-//			System.out.println("linkedFilters = " + linkedFilters);
+			//System.out.println("linkedFilters = " + linkedFilters);
 			
 			if(linkedFilters != null) { // if list was made successfully
 				Iterator<SequentialFilter> iter = linkedFilters.iterator();
