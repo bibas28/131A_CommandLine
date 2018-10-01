@@ -23,9 +23,16 @@ public class SequentialCommandBuilder {
 		List<SequentialFilter> filters = new LinkedList<>();
 		SequentialFilter filter;
 		int counter = -1;
+		boolean hasRedirect = false;
+		String temp = null;
 		
 		for(String subcommand : subcommands) {
 			counter++;
+			if(subcommand.contains(">")) {
+				hasRedirect = true;
+				temp = subcommand.substring(subcommand.indexOf("> "));
+				subcommand = subcommand.substring(0, subcommand.indexOf(" > "));
+			}
 			filter = constructFilterFromSubCommand(subcommand, counter);
 			if(filter != null) { // if there was no error when creating filter, then add it to the list
 				filters.add(filter);
@@ -33,7 +40,13 @@ public class SequentialCommandBuilder {
 				return null;
 			}
 		}
-		filters.add(new PrintFilter());
+		//unless there is a redirect at the end, print filter is always the last filter
+		if(hasRedirect) {
+			filters.add(constructFilterFromSubCommand(temp, -1));
+		}else {
+			filters.add(new PrintFilter());
+		}	
+			
 		if(linkFilters(filters)) { // if no errors when linking filters
 			return filters;
 		}
@@ -43,6 +56,7 @@ public class SequentialCommandBuilder {
 	
 	
 	private static SequentialFilter constructFilterFromSubCommand(String subcommand,int counter){
+	
 		String[] subCommands = subcommand.split("\\s", -1); //split by whitespace
 		SequentialFilter filter = null;
 		String subFilter = subCommands[0];
@@ -99,9 +113,8 @@ public class SequentialCommandBuilder {
 				break;
 				
 			case ">":
-				error = hasFileError(subCommands, subcommand, ">");
-				if(error != null) {
-					System.out.print(error);
+				if(subCommands.length < 2) { // > has no argument
+					System.out.print(Message.REQUIRES_PARAMETER.with_parameter(">"));
 					return null;
 				}
 			try {
